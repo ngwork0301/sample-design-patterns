@@ -18,6 +18,8 @@ public class Main extends JFrame implements MouseMotionListener, WindowListener 
     private JButton greenButton = new JButton("green");
     // 青ボタン
     private JButton blueButton = new JButton("blue");
+    // アンドゥボタン
+    private JButton undoButton = new JButton("undo");
 
     // コンストラクタ
     public Main(String title) {
@@ -46,12 +48,17 @@ public class Main extends JFrame implements MouseMotionListener, WindowListener 
             history.append(cmd);
             cmd.execute();
         });
+        undoButton.addActionListener(e -> {
+            history.undo();
+            canvas.repaint();
+        });
 
         Box buttonBox = new Box(BoxLayout.X_AXIS);
         buttonBox.add(clearButton);
         buttonBox.add(redButton);
         buttonBox.add(greenButton);
         buttonBox.add(blueButton);
+        buttonBox.add(undoButton);
         Box mainBox = new Box(BoxLayout.Y_AXIS);
         mainBox.add(buttonBox);
         mainBox.add(canvas);
