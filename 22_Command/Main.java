@@ -12,6 +12,12 @@ public class Main extends JFrame implements MouseMotionListener, WindowListener 
     private DrawCanvas canvas = new DrawCanvas(400, 400, history);
     // 消去ボタン
     private JButton clearButton = new JButton("clear");
+    // 赤ボタン
+    private JButton redButton = new JButton("red");
+    // 緑ボタン
+    private JButton greenButton = new JButton("green");
+    // 青ボタン
+    private JButton blueButton = new JButton("blue");
 
     // コンストラクタ
     public Main(String title) {
@@ -21,11 +27,31 @@ public class Main extends JFrame implements MouseMotionListener, WindowListener 
         canvas.addMouseMotionListener(this);
         clearButton.addActionListener(e -> {
             history.clear();
+            canvas.init();
             canvas.repaint();
+        });
+
+        redButton.addActionListener(e -> {
+            Command cmd = new ColorCommand(canvas, Color.red);
+            history.append(cmd);
+            cmd.execute();
+        });
+        greenButton.addActionListener(e -> {
+            Command cmd = new ColorCommand(canvas, Color.green);
+            history.append(cmd);
+            cmd.execute();
+        });
+        blueButton.addActionListener(e -> {
+            Command cmd = new ColorCommand(canvas, Color.blue);
+            history.append(cmd);
+            cmd.execute();
         });
 
         Box buttonBox = new Box(BoxLayout.X_AXIS);
         buttonBox.add(clearButton);
+        buttonBox.add(redButton);
+        buttonBox.add(greenButton);
+        buttonBox.add(blueButton);
         Box mainBox = new Box(BoxLayout.Y_AXIS);
         mainBox.add(buttonBox);
         mainBox.add(canvas);
